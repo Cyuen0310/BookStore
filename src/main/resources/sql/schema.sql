@@ -3,6 +3,9 @@ DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
+    fullname VARCHAR(50) ,
+    email VARCHAR(50) ,
+    address VARCHAR(50) ,
     PRIMARY KEY (username)
 );
 CREATE TABLE IF NOT EXISTS user_roles (

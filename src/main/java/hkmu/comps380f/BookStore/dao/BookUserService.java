@@ -27,11 +27,10 @@ public class BookUserService implements UserDetailsService {
         if (bookUser == null) {
             throw new UsernameNotFoundException("User '" + username + "' not found.");
         }
-        List<GrantedAuthority> authorities = new ArrayList<>();
+        List <GrantedAuthority> authorities = new ArrayList<>();
         for (UserRole role : bookUser.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getRole()));
         }
         return new User(bookUser.getUsername(), bookUser.getPassword(), authorities);
     }
-
 }

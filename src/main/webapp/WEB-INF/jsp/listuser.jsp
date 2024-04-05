@@ -23,12 +23,15 @@
     <c:otherwise>
         <table>
             <tr>
-                <th>Username</th><th>Password</th><th>Roles</th><th>Action</th>
+                <th>Username</th><th>Password</th><th>Roles</th><th>Full name</th><th>Email </th><th>Address</th><th>Action</th>
             </tr>
             <c:forEach items="${bookUsers}" var="user">
                 <tr>
                     <td>${user.username}</td>
                     <td>${fn:substringAfter(user.password, '{noop}')}</td>
+                    <td>${user.name}</td>
+                    <td>${user.email}</td>
+                    <td>${user.address}</td>
                     <td>
                         <c:forEach items="${user.roles}" var="role" varStatus="status">
                             <c:if test="${!status.first}">, </c:if>

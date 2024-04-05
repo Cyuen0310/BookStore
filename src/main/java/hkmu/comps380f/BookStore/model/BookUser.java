@@ -13,7 +13,15 @@ import java.util.List;
 public class BookUser {
     @Id
     private String username;
+
     private String password;
+
+    private String fullname;
+
+    private String email;
+
+    private String address;
+
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<UserRole> roles = new ArrayList<>();
@@ -21,9 +29,20 @@ public class BookUser {
     public BookUser() {
     }
 
-    public BookUser(String username, String password, String[] roles) {
+    public BookUser(String username, String password,String[] roles) {
         this.username = username;
         this.password = "{noop}" + password;
+        for (String role : roles) {
+            this.roles.add(new UserRole(this, role));
+        }
+    }
+
+    public BookUser(String username, String password,String fullname,String email,String address, String[] roles) {
+        this.username = username;
+        this.password = "{noop}" + password;
+        this.fullname = fullname;
+        this.email = email;
+        this.address = address;
         for (String role : roles) {
             this.roles.add(new UserRole(this, role));
         }
@@ -47,6 +66,30 @@ public class BookUser {
         this.password = password;
     }
 
+    public String getName() {
+        return fullname;
+    }
+
+    public void setName(String fName) {
+        this.fullname = fName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public List<UserRole> getRoles() {
         return roles;
     }
@@ -54,4 +97,6 @@ public class BookUser {
     public void setRoles(List<UserRole> roles) {
         this.roles = roles;
     }
+
+
 }

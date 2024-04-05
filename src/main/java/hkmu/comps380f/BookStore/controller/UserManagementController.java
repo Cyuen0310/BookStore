@@ -1,5 +1,6 @@
 package hkmu.comps380f.BookStore.controller;
 
+import hkmu.comps380f.BookStore.dao.BookUserRepository;
 import hkmu.comps380f.BookStore.dao.BookUserService;
 import hkmu.comps380f.BookStore.dao.UserManagementService;
 import hkmu.comps380f.BookStore.model.BookUser;
@@ -61,6 +62,9 @@ public class UserManagementController {
     @Resource
     BookUserService buService;
 
+    @Resource
+    BookUserRepository uRepo;
+
     @GetMapping({"", "/", "/list"})
     public String list(ModelMap model) {
         model.addAttribute("bookUsers", umService.getBookUsers());
@@ -89,7 +93,7 @@ public class UserManagementController {
     //TASK 7
     @GetMapping("/edit/{username}")
     public ModelAndView userEditForm(@PathVariable("username") String username, Principal principal, HttpServletRequest request) {
-        UserDetails user = buService.loadUserByUsername(username);
+        BookUser user = umService.getBookUser(username);
         if (user == null || !(request.isUserInRole("ROLE_ADMIN")) && !principal.getName().equals(user.getUsername())){
             return new ModelAndView( new RedirectView("/book/list",true) );
         }
